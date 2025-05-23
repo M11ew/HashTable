@@ -1,5 +1,5 @@
 from hashtable import HashTable
-
+import csv
 if __name__ == "__main__":
     ht = HashTable(30)
     """
@@ -15,4 +15,12 @@ if __name__ == "__main__":
     # Test your hashtable using appropriate methods
     # from your implementation
     
+    with open('student_data.csv', 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            ht.setitem(row['id'], row)
+    ht.getitem('s0014d') 
+    ht.delitem('s0014d')
+    print(ht.getitem('s0014d'))
     
+

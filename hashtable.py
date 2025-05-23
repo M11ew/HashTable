@@ -1,6 +1,7 @@
 class HashTable:
     def __init__(self, size):
-        pass
+        self.size = size 
+        self.value = [None]*self.size
 
     def __repr__(self):
         """returns a formatted string containing the values in the hash table"""
@@ -20,19 +21,47 @@ class HashTable:
         - key: str
           The key to be hashed
         """
-        pass
+
+        p = 31
+        m = 1000000009
+        hashValue = 0
+        pPow = 1
+
+        for i in range(1,len(key)):
+            charValue = ord(key[i]) - ord('a') + 1 
+            hashValue = (hashValue + charValue* pPow) % m 
+            pPow = (pPow * p) % m
+        
+        return hashValue % self.size
 
     def setitem(self, key: str, value: dict) -> None:
         """
+        updates and adds an item into the list of values
         """
-        pass
+        index = self._hash(key)
+        message = "Data successfully updated!"
+        if self.value[index] is None:
+            message = "Data successfully added!"
+        self.value[index] = value
+        print(message)
 
     def getitem(self, key: str) -> 'dict | None':
         """
+        returns the value of the key that is being looked for
         """
-        pass
+        index = self._hash(key)
+        if self.value[index] is None:
+            return "Destination is empty!"
+        else:
+            return self.value[index]
         
     def delitem(self, key: str) -> None:
         """
+        deletes an item from the destination 
         """
-        pass
+        index = self._hash(key)
+        if self.value[index] is None:
+            return 'Unable to remove. Destination is empty!'
+        else:
+            self.value[index] = None
+            return 'Data successfully removed'
